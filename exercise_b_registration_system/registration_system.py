@@ -27,3 +27,29 @@ def set_mark(student_id, mark, overwrite=False):
 set_mark("S001", 80, overwrite=True)
 
 print(students)
+
+def try_set_mark(student_id, mark, overwrite=False):
+    try:
+        set_mark(student_id, mark, overwrite)
+
+    except InvalidMarkError as error:
+        print("Rejected:", error)
+
+    except DuplicateStudentError as error:
+        print("Rejected:", error)
+
+    except Exception as error:
+        print("Unexpected error:", error)
+
+    else:
+        print("Success: mark recorded")
+
+    finally:
+        print("Attempt finished\n")
+
+
+try_set_mark("S007", 75)
+try_set_mark("S001", 80)
+try_set_mark("S001", 80, overwrite=True)
+
+print(students)
