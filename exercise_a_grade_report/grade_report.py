@@ -15,13 +15,17 @@ def class_report(data):
 
         try:
             mark = int(mark)
-            marks.append(mark)
 
-        except ValueError:
+        except (ValueError, TypeError):
             skipped_count += 1
             print(student_id, "skipped: mark is not a valid number")
+            continue
 
-    # marks = list(data.values())
+        if mark < 0 or mark > 100:
+            raise ValueError(student_id + " has an invalid mark. Between 0 - 100.")
+        
+        marks.append(mark)
+
 
     total = sum(marks)
     average = total / len(marks)
@@ -32,7 +36,5 @@ def class_report(data):
     print("Highest:", highest)
     print("Lowest:", lowest)
     print("Skipped records:", skipped_count)
-
-    # print(len(marks))
 
 class_report(students)
